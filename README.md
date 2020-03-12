@@ -1,7 +1,8 @@
 # Covid-19OpenApp
 respiratory infectious disease  react-native app 
 
-Objectif 
+### Objectif 
+
  [] User connect to the app with his phone number.
  
  [] Give his position 
@@ -10,3 +11,12 @@ Objectif
  
  [] Show instructions
 
+
+
+## Code convention 
+    - linting   ES lint
+
+## Pull request acceptance 
+    [] With gif  , and message 
+    [] 1 functionality per pull request 
+    [] Testing at least the component name  
