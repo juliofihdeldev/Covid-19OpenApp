@@ -1,5 +1,5 @@
 # Covid-19OpenApp
-respiratory infectious disease  react-native app 
+respiratory infectious disease react-native app 
 
 ### Objectif 
 
@@ -12,7 +12,27 @@ respiratory infectious disease  react-native app
  [] Show instructions
 
 
+## Requirements
 
+For development, you will need Node.js, <a href="https://facebook.github.io/react-native/docs/getting-started" target="_blank">React Native</a> and a node global package manager, Yarn, installed in your environement.
+
+You will also need to make sure that expo works on your machine.
+
+## Basic Usage
+
+- Clone the repo and enter the project folder
+```
+git https://github.com/juliofihdeldev/Covid-19OpenApp
+cd Covid-19OpenApp
+```
+- Install dependencies and run :
+```
+ yarn start
+```
+
+## Contributing
+
+It should start running on your emulator.
 ## Code convention 
     - linting   ES lint
 
