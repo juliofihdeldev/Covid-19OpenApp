@@ -14,7 +14,7 @@ respiratory infectious disease react-native app
 
 ## Requirements
 
-For development, you will need Node.js, <a href="https://facebook.github.io/react-native/docs/getting-started" target="_blank">React Native</a> and a node global package manager, Yarn, installed in your environement.
+For development, you will need Node.js, expo <a href="https://facebook.github.io/react-native/docs/getting-started" target="_blank">React Native</a> and a node global package manager, Yarn, installed in your environement.
 
 You will also need to make sure that expo works on your machine.
 
@@ -30,9 +30,8 @@ cd Covid-19OpenApp
  yarn start
 ```
 
-## Contributing
+# Contributing
 
-It should start running on your emulator.
 ## Code convention 
     - linting   ES lint
 
