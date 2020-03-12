@@ -46,7 +46,7 @@ cd covid19App
 # Contributing
 
 ## Code convention 
-    - linting   ES lint
+    - Linting   ES lint
 
 ## Pull request acceptance 
     [] Create an issue first 
