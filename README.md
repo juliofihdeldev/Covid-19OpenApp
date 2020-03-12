@@ -23,7 +23,7 @@ You will also need to make sure that expo works on your machine.
 - Clone the repo and enter the project folder
 ```
 git https://github.com/juliofihdeldev/Covid-19OpenApp
-cd Covid-19OpenApp
+cd covid19App
 ```
 - Install dependencies and run :
 ```
