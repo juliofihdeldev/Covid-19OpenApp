@@ -44,6 +44,7 @@ cd covid19App
 ```
 
 # Contributing
+Please, read our [Contribution Guidelines](https://github.com/juliofihdeldev/Covid-19OpenApp/blob/master/CONTRIBUTING.md) if you wish to participate into the development of Covid19App.
 
 ## Code convention 
     - Linting   ES lint
