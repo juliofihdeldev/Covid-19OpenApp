@@ -14,7 +14,7 @@ respiratory infectious disease  react-native app
 
 
 ## Code convention 
-    - linting   ES lint
+    - Linting   ES lint
 
 ## Pull request acceptance 
     [] With gif  , and message 
