@@ -49,6 +49,7 @@ cd covid19App
     - linting   ES lint
 
 ## Pull request acceptance 
-    [] With gif  , and message 
-    [] 1 functionality per pull request 
-    [] Testing at least the component name  
+    [] Create an issue first 
+    [] Send a gif , and message 
+    [] please 1 functionality per pull request 
+    [] Testing at least the component name.  
