@@ -8,7 +8,7 @@ import Loading from '../utils/Loading';
 import { urlFunction } from '../utils/url';
 import axios from 'axios';
 import { Dropdown } from 'react-native-material-dropdown';
-import { TextInput, Text, Button, ToggleButton,ActivityIndicator, Colors } from 'react-native-paper';
+import { TextInput, Text, Button, ToggleButton,ActivityIndicator, Colors,Paragraph, Dialog, Portal } from 'react-native-paper';
 import { Provider as PaperProvider } from 'react-native-paper';
 import WebView from 'react-native-webview';
 import QRCode from 'react-native-qrcode-svg';
@@ -30,50 +30,27 @@ class QA extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			// email: '',
 			prenom: '',
 			nom: '',
 			type: 'User',
-			// password: '',
-			// confirm_password: '',
 			loading: false,
 			showProgress: false,
 			sexe: 'M',
 			age: '',
 			telephone: '',
 			qrCode: null,
+			visible: false,
 			baseCode: 'PATCOV#',
-			loading: false,
-			dataArray: [
-				{
-					value: ''
-				}
-			]
+			loading: false
 		};
 	}
 
 	updateSex = (sexe) => {
 		this.setState({ sexe: sexe });
-		console.log('sexe--->>>', sexe);
-	};
-
-	ageData = () => {
-		let i = '18';
-		let dataArray = [];
-
-		for (let index = 12; index < 100; index++) {
-			dataArray.push({ value: index });
-			this.setState({
-				dataArray: dataArray
-			});
-		}
-
-		console.log('ageArray---->>> ', dataArray);
 	};
 
 	getQrCode = (time_) => {
 		let qrCodeValue = this.state.baseCode + time_;
-		console.log('qrCodeValue', qrCodeValue);
 
 		this.setState(
 			{
@@ -85,7 +62,18 @@ class QA extends Component {
 		);
 	};
 
-	handleSubmit(event) {
+	createAlert = (msgTitle, msgContent) => {
+		Alert.alert(
+      msgTitle,
+      msgContent,
+      [
+        { text: "OK", onPress: () => this.setState({visible: true}) }
+      ],
+      { cancelable: false }
+    );
+	}
+
+	handleSubmit() {
 		axios
 			.post(`${urlFunction()}/headers`, {
 				full_name: this.state.nom + ' ' + this.state.prenom,
@@ -112,6 +100,10 @@ class QA extends Component {
 	componentDidMount() {
 		console.log(`url---> ${urlFunction()}/headers `);
 	}
+
+	 _showDialog = () => this.setState({ visible: true });
+
+  	 _hideDialog = () => this.setState({ visible: false });
 
 	render() {
 		return (
@@ -172,7 +164,9 @@ class QA extends Component {
 										<ToggleButton icon="human-female" value="F" style={{ width: width / 4 }} />
 									</View>
 								</ToggleButton.Group>
+
 							</PaperProvider>
+							
 
 							<TouchableOpacity onPress={this.register}>
 								<View style={styles.buttonRegister}>
@@ -188,6 +182,23 @@ class QA extends Component {
 									/>
 								</View>
 							</View>
+							<PaperProvider>
+								<Portal>
+									<Dialog
+										visible={this.state.visible}
+										onDismiss={this._hideDialog}>
+										<Dialog.Title>Alert</Dialog.Title>
+										<Dialog.Content>
+										<Paragraph>Do you want to made the self Test?</Paragraph>
+										</Dialog.Content>
+										<Dialog.Actions>
+										<Button onPress={this._hideDialog}>No</Button>
+										<Button onPress={()=>
+										this.props.navigation.navigate("Quiz")}>Yes</Button>
+										</Dialog.Actions>
+									</Dialog>
+        						</Portal>
+								</PaperProvider>
 						</Form>
 					</Content>
 				</LinearGradient>
@@ -222,7 +233,7 @@ class QA extends Component {
 				loading: true
 			})
 			this.getQrCode(new Date().getTime());
-			alert("Data registered with Succes");
+			this.createAlert("Success", "Data registered with success")
 
 			this.handleSubmit();
 		}
@@ -241,10 +252,6 @@ const styles = StyleSheet.create({
 		backgroundColor: 'red',
 		flex: 1,
 		flexDirection: 'row',
-		// alignItems: 'center',
-		// justifyContent: 'space-between',
-		// position: 'absolute',
-		// bottom: 0,
 		width: width / 4
 	},
 	inputStyle: {
@@ -290,21 +297,6 @@ const styles = StyleSheet.create({
 	textSexe: {
 		fontWeight: 'bold',
 		textAlign: 'center'
-	},
-	pickerStyle: {
-		height: 100,
-		width: '70%',
-		justifyContent: 'center',
-		padding: 40,
-		marginTop: height * 0.04
-	},
-	dropDown: {
-		height: 90,
-		width: '100%',
-		color: 'white',
-		justifyContent: 'flex-end',
-		paddingTop: 20,
-		marginTop: 50
 	},
 	qrCodeView: {
 		marginTop: 10,

@@ -10,12 +10,30 @@ import QA from './component/QA';
 import Information from './component/Information';
 import Map from './component/Map';
 import { color } from './utils/GlobalColor';
+import Quiz from './component/Quiz';
+
+
+const DiagnosticToQuiz = createStackNavigator(
+	{
+		Diagnostic : {
+			screen: QA
+		},
+		Quiz: {
+			screen: Quiz
+		}
+	},
+	{
+		initialRouteName: 'Diagnostic',
+		headerMode: 'none',
+		mode: 'modal'
+	}
+);
 
 // tabs
 const Tabs = createBottomTabNavigator(
 	{
 		Informations: { screen: Information },
-		Diagnostic  : { screen: QA },
+		Diagnostic  : { screen: DiagnosticToQuiz },
 		Map         : { screen: Map },
 	},
 	{
@@ -81,6 +99,8 @@ const RootStack = createSwitchNavigator({
 		initialRouteName: 'NavigationRoute',
 	},
 );
+
+
 
 export default createAppContainer(RootStack);
 
