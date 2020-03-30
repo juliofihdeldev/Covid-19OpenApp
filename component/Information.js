@@ -7,6 +7,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import Loading from '../utils/Loading';
 import { urlFunction } from '../utils/url';
 import axios from 'axios';
+import News from './News'
 
 const { height, width } = Dimensions.get('window');
 
@@ -49,6 +50,9 @@ class Information extends Component {
                             }}>
                                 Information list
                             </Text>
+                        </View>
+                        <View>
+                            <News/>
                         </View>
                     </Content>
                 </LinearGradient>

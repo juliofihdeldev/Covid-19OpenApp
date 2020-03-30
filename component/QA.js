@@ -8,7 +8,7 @@ import Loading from '../utils/Loading';
 import { urlFunction } from '../utils/url';
 import axios from 'axios';
 import { Dropdown } from 'react-native-material-dropdown';
-import { TextInput, Text, Button, ToggleButton } from 'react-native-paper';
+import { TextInput, Text, Button, ToggleButton,ActivityIndicator, Colors } from 'react-native-paper';
 import { Provider as PaperProvider } from 'react-native-paper';
 import WebView from 'react-native-webview';
 import QRCode from 'react-native-qrcode-svg';
@@ -43,6 +43,7 @@ class QA extends Component {
 			telephone: '',
 			qrCode: null,
 			baseCode: 'PATCOV#',
+			loading: false,
 			dataArray: [
 				{
 					value: ''
@@ -99,7 +100,8 @@ class QA extends Component {
 					prenom: '',
 					telephone: '',
 					age:'',
-					sexe:''
+					sexe:'',
+					loading: false
 				})
 			})
 			.catch((error) => {
@@ -158,6 +160,8 @@ class QA extends Component {
 								/>
 							</View>
 
+							<ActivityIndicator animating={this.state.loading} color={Colors.black} />
+
 							<PaperProvider>
 								<View style={styles.buttonSexe}>
 									<Text style={styles.textSexe}>Sexe: {this.state.sexe}</Text>
@@ -214,22 +218,11 @@ class QA extends Component {
 			alert("Age can't be null");
 			return;
 		} else {
+			this.setState({
+				loading: true
+			})
 			this.getQrCode(new Date().getTime());
-			alert(
-				'Information : ' +
-					'Nom: ' +
-					this.state.nom +
-					' Prenom: ' +
-					this.state.prenom +
-					' Telepbone: ' +
-					this.state.telephone +
-					' Age: ' +
-					this.state.age +
-					' Sexe: ' +
-					this.state.sexe +
-					' QR Code : ' +
-					this.state.baseCode
-			);
+			alert("Data registered with Succes");
 
 			this.handleSubmit();
 		}
