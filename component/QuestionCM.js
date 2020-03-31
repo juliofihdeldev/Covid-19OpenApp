@@ -1,143 +1,148 @@
 import React, { Component } from 'react';
-import {View,StyleSheet,Dimensions} from 'react-native';
-import {Text,Button,Dialog,Portal,RadioButton} from 'react-native-paper';
+import { View, StyleSheet, Dimensions } from 'react-native';
+import { Text, Button, Dialog, Portal, RadioButton } from 'react-native-paper';
 import { Provider as PaperProvider, Paragraph } from 'react-native-paper';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { SafeAreaView } from 'react-navigation';
+import { color } from '../utils/GlobalColor';
 
 const { height, width } = Dimensions.get('window');
 
 class QuestionCM extends Component {
-    constructor(props){
-        super(props)
+	constructor(props) {
+		super(props);
 
-        this.state = {
-            visible: true,
-            responseValue: [],
-            checked_1: '',
-            checked_2: '',
-            checked_3: '',
-            checked_4: '',
-            checked_5: '',
-            checked_6: '',
-            checked_7: '',
-            checked_8: ''
-        }
-    }
+		this.state = {
+			visible: true,
+			responseValue: [],
+			checkIndex: [],
+			check: this.props.itemChoice.split(';')
+		};
+	}
 
-    _showDialog = () => this.setState({ visible: true });
+	componentWillReceiveProps = () => {
+		console.log('itemChoice', this.props.itemChoice);
+		this.setState({
+			check: this.props.item.choice.split(';')
+		});
+	};
 
-    _hideDialog = () => this.setState({ visible: false });
+	getCheckIndex = () => {
+		let myArray = [];
+		for (let index = 0; index < this.state.check.length; index++) {
+			const element = 'check_' + index;
+			myArray.push(element);
+		}
+		this.setState(
+			{
+				checkIndex: myArray
+			},
+			() => console.log('myarray---->> ', this.state.checkIndex)
+		);
+	};
 
-  render() {
-      const { checked_1, checked_2,checked_3,checked_4,checked_5,checked_6,checked_7,checked_8 } = this.state;
-    return (
-      <PaperProvider>
-        <Button onPress={this._showDialog}>Show Dialog</Button>
-        <Portal>
-          <Dialog
-             visible={this.state.visible}
-             onDismiss={this._hideDialog}>
-            <Dialog.Title>Question 1</Dialog.Title>
-            <Dialog.Content>
-              <Paragraph>Quels sont vos symptômes?</Paragraph>
-              {/*
-                 ;Autres;" */}
-                <TouchableOpacity style={styles.radioButtonView}
-                    onPress={() => {  this.setState({ checked_1: this.state.checked_1 =='Fièvre'? '':'Fièvre'  }); 
-                    }}>
-                <Text>Fièvre</Text>
-                    <RadioButton value={this.state.checked_1}
-                    status={checked_1 === 'Fièvre' ? 'checked' : 'unchecked'}
-                    />
-                </TouchableOpacity>
+	_showDialog = () => this.setState({ visible: true });
 
-                <TouchableOpacity style={styles.radioButtonView}
-                    onPress={() => {  this.setState({ checked_2: this.state.checked_2 =='Fatigue inhabituelle'? '':'Fatigue inhabituelle'  }); 
-                    }}>
-                <Text>Fatigue inhabituelle</Text>
-                    <RadioButton value={this.state.checked_2}
-                    status={checked_2 === 'Fatigue inhabituelle' ? 'checked' : 'unchecked'}
-                    />
-                </TouchableOpacity>
+	_hideDialog = () => this.setState({ visible: false });
 
-                <TouchableOpacity style={styles.radioButtonView}
-                    onPress={() => {  this.setState({ checked_3: this.state.checked_3 =='Courbatures'? '':'Courbatures'  }); 
-                    }}>
-                <Text>Courbatures</Text>
-                    <RadioButton value={this.state.checked_3}
-                    status={checked_3 === 'Courbatures' ? 'checked' : 'unchecked'}
-                    />
-                </TouchableOpacity>
+	getNextQuestion = (value) => {
+		this.props.callNextQuestion(value);
+		if (this.props.itemChoice != this.state.check) {
+			this.setState({
+				check: this.props.itemChoice
+			});
+		}
+	};
 
-                <TouchableOpacity style={styles.radioButtonView}
-                    onPress={() => {  this.setState({ checked_4: this.state.checked_4 =='Toux et maux de gorge'? '':'Toux et maux de gorge'  }); 
-                    }}>
-                <Text>Toux et maux de gorge</Text>
-                    <RadioButton value={this.state.checked_4}
-                    status={checked_4 === 'Toux et maux de gorge' ? 'checked' : 'unchecked'}
-                    />
-                </TouchableOpacity>
+	render() {
+		const { checked_1, checked_2, checked_3, checked_4, checked_5, checked_6, checked_7, checked_8 } = this.state;
+		return (
+			<SafeAreaView style={styles.container}>
+				<PaperProvider>
+					<Portal>
+						<Dialog visible={this.state.visible} onDismiss={this._hideDialog}>
+							<Dialog.Title
+								style={{
+									fontSize: 22
+								}}
+							>
+								Question {this.props.item.id}
+							</Dialog.Title>
+							<Dialog.Content>
+								<View>
+									<Paragraph
+										style={{
+											fontSize: 19
+										}}
+									>
+										{this.props.item.title}
+									</Paragraph>
 
-                <TouchableOpacity style={styles.radioButtonView}
-                    onPress={() => {  this.setState({ checked_5: this.state.checked_5 =='Gêne respiratoire'? '':'Gêne respiratoire'  }); 
-                    }}>
-                <Text>Gêne respiratoire</Text>
-                    <RadioButton value={this.state.checked_5}
-                    status={checked_5 === 'Gêne respiratoire' ? 'checked' : 'unchecked'}
-                    />
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.radioButtonView}
-                    onPress={() => {  this.setState({ checked_6: this.state.checked_6 =='Perte de l\'appetit'? '':'Perte de l\'appetit'  }); 
-                    }}>
-                <Text>Perte de l'appetit</Text>
-                    <RadioButton value={this.state.checked_6}
-                    status={checked_6 === 'Perte de l\'appetit' ? 'checked' : 'unchecked'}
-                    />
-                </TouchableOpacity>
-      
-                <TouchableOpacity style={styles.radioButtonView}
-                    onPress={() => {  this.setState({ checked_7: this.state.checked_7 =='Baisse de l\'audition ( manke tande bien?)'? '':'Baisse de l\'audition ( manke tande bien?)'  }); 
-                    }}>
-                <Text>Baisse de l'audition ( manke tande bien?)</Text>
-                    <RadioButton value={this.state.checked_7}
-                    status={checked_7 === 'Baisse de l\'audition ( manke tande bien?)' ? 'checked' : 'unchecked'}
-                    />
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.radioButtonView}
-                    onPress={() => {  this.setState({ checked_8: this.state.checked_8 =='Diarhée surtout chez les enfants'? '':'Diarhée surtout chez les enfants'  }); 
-                    }}>
-                <Text>Diarhée surtout chez les enfants</Text>
-                    <RadioButton value={this.state.checked_8}
-                    status={checked_8 === 'Diarhée surtout chez les enfants' ? 'checked' : 'unchecked'}
-                    />
-                </TouchableOpacity>
-
-            </Dialog.Content>
-            <Dialog.Actions>
-              <Button onPress={this._hideDialog}>Done</Button>
-            </Dialog.Actions>
-          </Dialog>
-        </Portal>
-      </PaperProvider>
-    );
-  }
+									{this.state.check.map((value, index) => {
+										return (
+											<TouchableOpacity
+												key={index}
+												style={styles.radioButtonView}
+												onPress={() => {
+													this.setState({
+														checked_1: this.state.checked_1 == 'Fièvre' ? '' : 'Fièvre'
+													});
+												}}
+											>
+												<Text>{value}</Text>
+												<RadioButton
+													value={this.state.checked_1}
+													status={checked_1 === 'Fièvre' ? 'checked' : 'unchecked'}
+												/>
+											</TouchableOpacity>
+										);
+									})}
+								</View>
+							</Dialog.Content>
+							<Dialog.Actions>
+								{this.props.lengthOItem != this.props.item.id ? (
+									<Button
+										onPress={() => {
+											this.getNextQuestion(this.props.item.id + 1);
+										}}
+									>
+										question {this.props.item.id} sur {this.props.lengthOItem} Continuer
+									</Button>
+								) : (
+									<Button onPress={this._hideDialog}> Terminer</Button>
+								)}
+							</Dialog.Actions>
+						</Dialog>
+					</Portal>
+				</PaperProvider>
+			</SafeAreaView>
+		);
+	}
 }
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
+		height: height - height / 4,
 		alignItems: 'center',
 		justifyContent: 'center',
-		width: width
-		// backgroundColor: color.appDarkBlue
+		width: width,
+		backgroundColor: color.appDarkBlue
 	},
 	radioButtonView: {
-          height: 40,
-          flexDirection:'row',
-          alignItems:'center', 
-    }
-})
+		height: 40,
+		flexDirection: 'row',
+		alignItems: 'center'
+	},
+	cardView: {
+		backgroundColor: 'white',
+		margin: width * 0.03,
+		borderRadius: width * 0.05,
+		shadowColor: '#000',
+		shadowOffset: { width: 0.5, height: 0.5 },
+		shadowOpacity: 0.5,
+		shadowRadius: 3
+	}
+});
 
 export default QuestionCM;

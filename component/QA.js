@@ -8,11 +8,20 @@ import Loading from '../utils/Loading';
 import { urlFunction } from '../utils/url';
 import axios from 'axios';
 import { Dropdown } from 'react-native-material-dropdown';
-import { TextInput, Text, Button, ToggleButton,ActivityIndicator, Colors,Paragraph, Dialog, Portal } from 'react-native-paper';
+import {
+	TextInput,
+	Text,
+	Button,
+	ToggleButton,
+	ActivityIndicator,
+	Colors,
+	Paragraph,
+	Dialog,
+	Portal
+} from 'react-native-paper';
 import { Provider as PaperProvider } from 'react-native-paper';
 import WebView from 'react-native-webview';
 import QRCode from 'react-native-qrcode-svg';
-
 
 const { height, width } = Dimensions.get('window');
 
@@ -39,7 +48,7 @@ class QA extends Component {
 			age: '',
 			telephone: '',
 			qrCode: null,
-			visible: false,
+			visible: true,
 			baseCode: 'PATCOV#',
 			loading: false
 		};
@@ -63,15 +72,10 @@ class QA extends Component {
 	};
 
 	createAlert = (msgTitle, msgContent) => {
-		Alert.alert(
-      msgTitle,
-      msgContent,
-      [
-        { text: "OK", onPress: () => this.setState({visible: true}) }
-      ],
-      { cancelable: false }
-    );
-	}
+		Alert.alert(msgTitle, msgContent, [ { text: 'OK', onPress: () => this.setState({ visible: true }) } ], {
+			cancelable: false
+		});
+	};
 
 	handleSubmit() {
 		axios
@@ -87,10 +91,10 @@ class QA extends Component {
 					nom: '',
 					prenom: '',
 					telephone: '',
-					age:'',
-					sexe:'',
+					age: '',
+					sexe: '',
 					loading: false
-				})
+				});
 			})
 			.catch((error) => {
 				console.log('Register fail', error);
@@ -101,9 +105,9 @@ class QA extends Component {
 		console.log(`url---> ${urlFunction()}/headers `);
 	}
 
-	 _showDialog = () => this.setState({ visible: true });
+	_showDialog = () => this.setState({ visible: true });
 
-  	 _hideDialog = () => this.setState({ visible: false });
+	_hideDialog = () => this.setState({ visible: false });
 
 	render() {
 		return (
@@ -164,9 +168,7 @@ class QA extends Component {
 										<ToggleButton icon="human-female" value="F" style={{ width: width / 4 }} />
 									</View>
 								</ToggleButton.Group>
-
 							</PaperProvider>
-							
 
 							<TouchableOpacity onPress={this.register}>
 								<View style={styles.buttonRegister}>
@@ -177,28 +179,26 @@ class QA extends Component {
 							<View style={styles.buttonSexe}>
 								<Text style={styles.textSexe}>{this.state.qrCode}</Text>
 								<View style={styles.qrCodeView}>
-									<QRCode size = {200}
+									<QRCode
+										size={200}
 										value={this.state.qrCode === null ? this.state.baseCode : this.state.qrCode}
 									/>
 								</View>
 							</View>
 							<PaperProvider>
 								<Portal>
-									<Dialog
-										visible={this.state.visible}
-										onDismiss={this._hideDialog}>
+									<Dialog visible={this.state.visible} onDismiss={this._hideDialog}>
 										<Dialog.Title>Alert</Dialog.Title>
 										<Dialog.Content>
-										<Paragraph>Do you want to made the self Test?</Paragraph>
+											<Paragraph>Do you want to made the self Test?</Paragraph>
 										</Dialog.Content>
 										<Dialog.Actions>
-										<Button onPress={this._hideDialog}>No</Button>
-										<Button onPress={()=>
-										this.props.navigation.navigate("Quiz")}>Yes</Button>
+											<Button onPress={this._hideDialog}>No</Button>
+											<Button onPress={() => this.props.navigation.navigate('Quiz')}>Yes</Button>
 										</Dialog.Actions>
 									</Dialog>
-        						</Portal>
-								</PaperProvider>
+								</Portal>
+							</PaperProvider>
 						</Form>
 					</Content>
 				</LinearGradient>
@@ -231,9 +231,9 @@ class QA extends Component {
 		} else {
 			this.setState({
 				loading: true
-			})
+			});
 			this.getQrCode(new Date().getTime());
-			this.createAlert("Success", "Data registered with success")
+			this.createAlert('Success', 'Data registered with success');
 
 			this.handleSubmit();
 		}
