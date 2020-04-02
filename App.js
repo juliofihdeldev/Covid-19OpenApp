@@ -12,10 +12,9 @@ import Map from './component/Map';
 import { color } from './utils/GlobalColor';
 import Quiz from './component/Quiz';
 
-
 const DiagnosticToQuiz = createStackNavigator(
 	{
-		Diagnostic : {
+		Diagnostic: {
 			screen: QA
 		},
 		Quiz: {
@@ -33,8 +32,8 @@ const DiagnosticToQuiz = createStackNavigator(
 const Tabs = createBottomTabNavigator(
 	{
 		Informations: { screen: Information },
-		Diagnostic  : { screen: DiagnosticToQuiz },
-		Map         : { screen: Map },
+		Diagnostic: { screen: DiagnosticToQuiz },
+		Map: { screen: Map }
 	},
 	{
 		defaultNavigationOptions: ({ navigation }) => ({
@@ -44,63 +43,52 @@ const Tabs = createBottomTabNavigator(
 				let iconName;
 
 				if (routeName === 'Informations') {
-					iconName = `ios-paper${
-						focused ? '' :
-					''}`;
+					iconName = `ios-paper${focused ? '' : ''}`;
 				}
 
 				if (routeName === 'Diagnostic') {
-					iconName = `ios-heart${
-						focused ? '' :
-					''}`;
+					iconName = `ios-heart${focused ? '' : ''}`;
+				} else if (routeName === 'Map') {
+					iconName = `ios-map${focused ? '' : ''}`;
 				}
-			
-				else if (routeName === 'Map') {
-					iconName = `ios-map${
-						focused ? '' :
-					''}`;
-				}
-		
+
 				// You can return any component that you like here!
 				return <IconComponent name={iconName} size={25} color={tintColor} />;
-			},
+			}
 		}),
 		tabBarOptions: {
-			labelStyle:
-			{
+			labelStyle: {
 				// display : 'none',
 			},
 			style: {
-				backgroundColor: color.appDarkBlue,
+				backgroundColor: color.appDarkBlue
 			},
 			activeTintColor: 'white',
 			inactiveTintColor: '#9EEFF4',
 			inactiveBackgroundColor: '#D31027',
-			activeBackgroundColor: '#e52d27',
-		},
-	},
+			activeBackgroundColor: '#e52d27'
+		}
+	}
 );
 
-
-const NavigationRoute = createSwitchNavigator({
+const NavigationRoute = createSwitchNavigator(
+	{
 		// Auth: AuthRouetView,
 		// Init: InitialPage,
-		Tabs: Tabs,
+		Tabs: Tabs
 	},
 	{
-		initialRouteName: 'Tabs',
-	},
+		initialRouteName: 'Tabs'
+	}
 );
 
-const RootStack = createSwitchNavigator({
-		NavigationRoute: NavigationRoute,
+const RootStack = createSwitchNavigator(
+	{
+		NavigationRoute: NavigationRoute
 	},
 	{
-		initialRouteName: 'NavigationRoute',
-	},
+		initialRouteName: 'NavigationRoute'
+	}
 );
-
-
 
 export default createAppContainer(RootStack);
-

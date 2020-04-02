@@ -16,12 +16,15 @@ class QuestionCM extends Component {
 			visible: true,
 			responseValue: [],
 			checkIndex: [],
-			check: this.props.itemChoice.split(';')
+			check: this.props.item.choice.split(';')
 		};
 	}
 
-	componentWillReceiveProps = () => {
-		console.log('itemChoice', this.props.itemChoice);
+	componentWillReceiveProps() {
+		this.loadFunc();
+	}
+
+	loadFunc = () => {
 		this.setState({
 			check: this.props.item.choice.split(';')
 		});
@@ -46,12 +49,9 @@ class QuestionCM extends Component {
 	_hideDialog = () => this.setState({ visible: false });
 
 	getNextQuestion = (value) => {
-		this.props.callNextQuestion(value);
-		if (this.props.itemChoice != this.state.check) {
-			this.setState({
-				check: this.props.itemChoice
-			});
-		}
+		this.props.callNextQuestion(value); //premye function ki nan component parent la
+
+		// this.getCheckIndex(); // sa c 2em function an
 	};
 
 	render() {

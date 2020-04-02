@@ -45,8 +45,9 @@ class Information extends Component {
                     <Content>
                         <View>
                             <Text style={{
-                                fontSize: 30,
-                                color: "#fff"
+                                fontSize: 20,
+                                color: "#fff",
+                                textAlign: "center"
                             }}>
                                 Information list
                             </Text>
