@@ -18,11 +18,12 @@ class Quiz extends Component {
 
 	getQuestion = () => {
 		axios
-			.get(`${urlFunction()}/questions`)
+			.get(`${urlFunction()}/questions/`)
 			.then((response) => {
 				this.setState({
 					questions: response.data
 				});
+				console.log('data-----', this.state.questions)
 			})
 			.catch((error) => {
 				console.log('loading question error---->> ', error);
@@ -30,6 +31,7 @@ class Quiz extends Component {
 	};
 
 	callNextQuestion = (value) => {
+		console.log('value----- ', value)
 		this.setState(
 			{
 				sliceValue: value
@@ -54,13 +56,14 @@ class Quiz extends Component {
 					<FlatList
 						data={this.state.questions.slice(sliceValue - 1, sliceValue)}
 						keyExtractor={(item, index) => 'key' + index}
-						renderItem={({ item }) => (
+						renderItem={({ item, index }) => (
 							<View>
 								<QuestionCM
 									item={item}
 									itemChoice={item.choice}
 									callNextQuestion={this.callNextQuestion}
 									lengthOItem={this.state.questions.length || 0}
+									questionNumber={index + 1 }
 								/>
 							</View>
 						)}

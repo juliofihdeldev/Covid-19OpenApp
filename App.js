@@ -91,4 +91,6 @@ const RootStack = createSwitchNavigator(
 	}
 );
 
+// drawer-------------------------
+
 export default createAppContainer(RootStack);

@@ -246,7 +246,6 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 		width: width
-		// backgroundColor: color.appDarkBlue
 	},
 	viewStyle: {
 		backgroundColor: 'red',
@@ -257,11 +256,7 @@ const styles = StyleSheet.create({
 	inputStyle: {
 		height: 38,
 		width: width - width / 6,
-		// borderColor: '#fff',
-		// borderWidth: 1,
-		// paddingLeft: 10,
 		marginTop: 10,
-		// marginLeft: 4,
 		bottom: 5,
 		borderRadius: 8,
 		fontWeight: 'bold',
