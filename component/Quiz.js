@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import { FlatList, View } from 'react-native';
+import { FlatList, View, StyleSheet, Dimensions} from 'react-native';
 import QuestionCM from './QuestionCM';
 import axios from 'axios';
 import { urlFunction } from '../utils/url';
-import { Text } from 'react-native-paper';
-import { SafeAreaView } from 'react-navigation';
 
 class Quiz extends Component {
 	constructor(props) {
@@ -12,7 +10,8 @@ class Quiz extends Component {
 
 		this.state = {
 			questions: [],
-			sliceValue: 1
+			sliceValue: 1,
+	
 		};
 	}
 
@@ -20,10 +19,19 @@ class Quiz extends Component {
 		axios
 			.get(`${urlFunction()}/questions/`)
 			.then((response) => {
+
+				let objectWithResponce = [];
+				let  resQuestion = []
+				response.data.forEach(el => {
+					resQuestion = el.choice.split(',');
+					el['options'] = resQuestion
+					objectWithResponce.push(el)
+				})
+
 				this.setState({
-					questions: response.data
+					questions: objectWithResponce,
+					check: objectWithResponce.options
 				});
-				console.log('data-----', this.state.questions.length)
 			})
 			.catch((error) => {
 				alert(error)
@@ -42,42 +50,35 @@ class Quiz extends Component {
 		);
 	}
 	};
-	componentWillMount(){
-		this.callNextQuestion(this.state.sliceValue)
-	}
 
 	componentWillMount() {
 		this.getQuestion();
 	}
 
+
 	render() {
-		// let { sliceValue } = this.state;
 		return (
-			<SafeAreaView>
-				<View
-					style={{
-						height: 1000
-					}}
-				>
-					<FlatList
-						data={this.state.questions.slice(this.state.sliceValue - 1, this.state.sliceValue)}
-						keyExtractor={(item, index) => 'key' + index}
-						renderItem={({ item }) => (
-							<View>
-								<QuestionCM
-									item={item}
-									itemChoice={item.choice}
-									callNextQuestion={this.callNextQuestion}
-									lengthOItem={this.state.questions.length || 0}
-									questionNumber={this.state.sliceValue }
-								/>
-							</View>
-						)}
-					/>
-				</View>
-			</SafeAreaView>
-		);
+
+
+			<FlatList
+			data={this.state.questions.slice(this.state.sliceValue - 1, this.state.sliceValue)}
+			keyExtractor={(item, index) => 'key' + index}
+			renderItem={({ item }) =>
+				(
+				<QuestionCM
+				item={item}
+				itemChoice={item.choice}
+				callNextQuestion={this.callNextQuestion}
+				lengthOItem={this.state.questions.length || 0}
+				questionNumber={this.state.sliceValue }
+				/>)}
+				keyExtractor={item => parseInt(item.id)}
+			/>
+		
+		)
 	}
 }
 
+
 export default Quiz;
+

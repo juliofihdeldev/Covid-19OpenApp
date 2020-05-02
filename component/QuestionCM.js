@@ -21,7 +21,7 @@ class QuestionCM extends Component {
 			checked_4: '',
 			checked_5: '',
 			qNumber: this.props.questionNumber,
-			check: this.props.item.choice.split(',')
+			check: this.props.item.options
 		};
 	}
 
@@ -44,7 +44,7 @@ class QuestionCM extends Component {
 
 	loadFunc = () => {
 		this.setState({
-			check: this.props.item.choice.split(',')
+			check: this.props.item.options
 		});
 	};
 
