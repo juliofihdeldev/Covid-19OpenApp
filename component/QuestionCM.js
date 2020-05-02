@@ -20,8 +20,22 @@ class QuestionCM extends Component {
 			checked_3: '',
 			checked_4: '',
 			checked_5: '',
+			qNumber: this.props.questionNumber,
 			check: this.props.item.choice.split(',')
 		};
+	}
+
+	clearAll = () => {
+		this.setState({
+			responseValue: [],
+			checked_1: '',
+			checked_2: '',
+			checked_3: '',
+			checked_4: '',
+			checked_5: '',
+			check: [],
+			qNumber: this.state.qNumber + 1
+		})
 	}
 
 	componentWillReceiveProps() {
@@ -39,8 +53,8 @@ class QuestionCM extends Component {
 	_hideDialog = () => this.setState({ visible: false });
 
 	getNextQuestion = (value) => {
-		console.log('value--------', value)
 		this.props.callNextQuestion(value);  
+		this.clearAll()
 	};
 
 	render() {
@@ -55,7 +69,7 @@ class QuestionCM extends Component {
 									fontSize: 22
 								}}
 							>
-								Question {this.props.questionNumber}
+								Question {this.state.qNumber}
 							</Dialog.Title>
 							<Dialog.Content>
 								<View>
@@ -172,7 +186,8 @@ class QuestionCM extends Component {
 												alert('you must choose an option')
 											} else {
 											console.log('result-----',this.state.checked_1,this.state.checked_2,this.state.checked_3,this.state.checked_4)
-											this.getNextQuestion(this.props.questionNumber + 1);
+											console.log('qNumber---', this.state.qNumber)
+											this.getNextQuestion(this.state.qNumber + 1);
 											}
 										}}
 									>

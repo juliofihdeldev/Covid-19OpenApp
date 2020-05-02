@@ -97,6 +97,7 @@ class QA extends Component {
 				});
 			})
 			.catch((error) => {
+				alert(error)
 				console.log('Register fail', error);
 			});
 	}

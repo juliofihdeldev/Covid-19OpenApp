@@ -17,7 +17,7 @@ const NewsCard = ({ item }) => {
 const styles = StyleSheet.create({
 	cardView: {
 		backgroundColor: 'white',
-		margin: width * 0.03,
+		margin: width * 0.02,
 		borderRadius: width * 0.05,
 		shadowColor: '#000',
 		shadowOffset: { width: 0.5, height: 0.5 },

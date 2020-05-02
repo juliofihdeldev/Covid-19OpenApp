@@ -23,29 +23,35 @@ class Quiz extends Component {
 				this.setState({
 					questions: response.data
 				});
-				console.log('data-----', this.state.questions)
+				console.log('data-----', this.state.questions.length)
 			})
 			.catch((error) => {
+				alert(error)
 				console.log('loading question error---->> ', error);
 			});
 	};
 
 	callNextQuestion = (value) => {
 		console.log('value----- ', value)
+		if(value <= this.state.questions.length){
 		this.setState(
 			{
 				sliceValue: value
 			},
 			() => console.log('')
 		);
+	}
 	};
+	componentWillMount(){
+		this.callNextQuestion(this.state.sliceValue)
+	}
 
 	componentWillMount() {
 		this.getQuestion();
 	}
 
 	render() {
-		let { sliceValue } = this.state;
+		// let { sliceValue } = this.state;
 		return (
 			<SafeAreaView>
 				<View
@@ -54,16 +60,16 @@ class Quiz extends Component {
 					}}
 				>
 					<FlatList
-						data={this.state.questions.slice(sliceValue - 1, sliceValue)}
+						data={this.state.questions.slice(this.state.sliceValue - 1, this.state.sliceValue)}
 						keyExtractor={(item, index) => 'key' + index}
-						renderItem={({ item, index }) => (
+						renderItem={({ item }) => (
 							<View>
 								<QuestionCM
 									item={item}
 									itemChoice={item.choice}
 									callNextQuestion={this.callNextQuestion}
 									lengthOItem={this.state.questions.length || 0}
-									questionNumber={index + 1 }
+									questionNumber={this.state.sliceValue }
 								/>
 							</View>
 						)}
