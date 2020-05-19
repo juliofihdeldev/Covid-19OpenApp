@@ -286,13 +286,14 @@ const styles = StyleSheet.create({
 		marginBottom: 10
 	},
 	textRegister: {
-		color: '#fff',
+		color: 'white',
 		fontWeight: 'bold',
 		textAlign: 'center'
 	},
 	textSexe: {
 		fontWeight: 'bold',
-		textAlign: 'center'
+		textAlign: 'center',
+		color: 'white'
 	},
 	qrCodeView: {
 		marginTop: 10,
