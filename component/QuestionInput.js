@@ -135,7 +135,9 @@ class QuestionCM extends Component {
 											} else {
 											console.log('result-----',this.state.value, this.state.text)
 											console.log('qNumber---', this.state.qNumber)
+											if(this.state.qNumber <= this.props.lengthOItem){
 											this.getNextQuestion(this.state.qNumber + 1);
+											}
 											}
 										}}
 									>

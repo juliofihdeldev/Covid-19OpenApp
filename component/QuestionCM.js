@@ -187,7 +187,9 @@ class QuestionCM extends Component {
 											} else {
 											console.log('result-----',this.state.checked_1,this.state.checked_2,this.state.checked_3,this.state.checked_4)
 											console.log('qNumber---', this.state.qNumber)
+											if(this.state.qNumber <= this.props.lengthOItem){
 											this.getNextQuestion(this.state.qNumber + 1);
+											}
 											}
 										}}
 									>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import QuestionCM from './QuestionCM';
 import QuestionCU from './QuestionCU'
 import QuestionInput from './QuestionInput';
+import Merci from './Merci'
 
 class Question extends Component {
 
@@ -24,6 +25,7 @@ class Question extends Component {
 
     render() {
         let question;
+        if(this.props.questionNumber < this.state.lengthOfItem){
         switch (this.state.type) {
             case 1:
                 question = <QuestionCM
@@ -53,7 +55,9 @@ class Question extends Component {
             />
                 break;
         }
-       
+    }else{
+            question = <Merci/>
+    }
 
         return (
             question

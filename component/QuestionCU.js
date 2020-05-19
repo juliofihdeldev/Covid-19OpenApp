@@ -148,15 +148,15 @@ class QuestionCM extends Component {
 														value: this.state.value == this.state.check[4] ? '' : this.state.check[4]
 													}, ()=> {
 
-														if(this.state.value === this.state.check[4]){
-														console.log('yes')
-														this.setState({
-															value:'',
-															checked_2:'',
-															checked_3:'',
-															checked_4:''
-														})
-													}
+													// 	if(this.state.value === this.state.check[4]? 'checked' : 'unchecked'){
+													// 	console.log('yes')
+													// 	this.setState({
+													// 		value:'',
+													// 		checked_2:'',
+													// 		checked_3:'',
+													// 		checked_4:''
+													// 	})
+													// }
 													})
 												}}
 											>
@@ -179,7 +179,9 @@ class QuestionCM extends Component {
 											} else {
 											console.log('result-----',this.state.value)
 											console.log('qNumber---', this.state.qNumber)
+											if(this.state.qNumber <= this.props.lengthOItem){
 											this.getNextQuestion(this.state.qNumber + 1);
+											}
 											}
 										}}
 									>
