@@ -25,7 +25,11 @@ const News = ({ navigation }) => {
 		NewsAPI.get('top-headlines?country=us&apiKey=650562ae616b4291a7ed6325d4cf0898')
 			.then(function(response) {
 				setLoading(true)
+				if(query == ''){
 				setNews(response.data);
+				}else{
+					// manage query
+				}
 				setLoading(false)
 			})
 			.catch(function(error) {
@@ -45,7 +49,7 @@ const News = ({ navigation }) => {
 		<Searchbar style={styles.searchBar}
                             theme=""
                             placeholder="Search"
-                            onChangeText={this._onChangeSearch}
+                            onChangeText={setQuery}
                             value={query}
                         />
 		<ActivityIndicator animating={loading} color={Colors.black} style={{alignItems:'center'}} />

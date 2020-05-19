@@ -5,6 +5,7 @@ import { Provider as PaperProvider, Paragraph } from 'react-native-paper';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-navigation';
 import { color } from '../utils/GlobalColor';
+import {TextInput} from 'react-native-paper';
 
 const { height, width } = Dimensions.get('window');
 
@@ -13,6 +14,7 @@ class QuestionCM extends Component {
 		super(props);
 
 		this.state = {
+            text:'',
 			visible: true,
 			responseValue: [],
 			value: '',
@@ -81,14 +83,15 @@ class QuestionCM extends Component {
 												style={styles.radioButtonView}
 												onPress={() => {
 													this.setState({
-														value: this.state.value === this.state.check[0] ? '' : this.state.check[0]
-													});
+														value: 'Oui' 
+													}),
+                                                    console.log('yyeeeee------->> ', this.state.value)
 												}}
 											>
-												<Text>{this.state.check[0]}</Text>
+												<Text>Oui</Text>
 												<RadioButton
-													value={this.state.check[0]}
-													status={value === this.state.check[0] ? 'checked' : 'unchecked'}
+													value='Oui'
+													status={this.state.value === 'Oui' ? 'checked' : 'unchecked'}
 													/>
 											</TouchableOpacity>
 
@@ -97,76 +100,29 @@ class QuestionCM extends Component {
 												style={styles.radioButtonView}
 												onPress={() => {
 													this.setState({
-														value: this.state.value == this.state.check[1] ? '' : this.state.check[1]
-													});
+														value: 'Non' 
+													}),
+                                                    console.log('yyeeeee------->> ', this.state.value)
 												 }}
 											>
-												<Text>{this.state.check[1]}</Text>
+												<Text>Non</Text>
 												<RadioButton
-													value={this.state.check[1]}
-													status={value === this.state.check[1] ? 'checked' : 'unchecked'}
+													value='Non'
+													status={this.state.value === 'Non' ? 'checked' : 'unchecked'}
 													/>
 											</TouchableOpacity>
+                                            {/* Text Input */}
+                                            <TextInput
+                                                label="Veuillez precisez svp"
+                                                value={this.state.text}
+                                                mode="outlined"
+                                                onChangeText={(text) => this.setState({ text })}
+                                                style={styles.inputStyle}
+                                                disabled = {this.state.value === 'Oui' ? false : true}
+                                            />
 
-											{/* Option 3 */}
-											<TouchableOpacity
-												style={styles.radioButtonView}
-												onPress={() => {
-													this.setState({
-														value: this.state.value == this.state.check[2] ? '' : this.state.check[2]
-													});
-												 }}
-											>
-												<Text>{this.state.check[2]}</Text>
-												<RadioButton
-													value={this.state.check[2]}
-													status={value === this.state.check[2] ? 'checked' : 'unchecked'}
-													/>
-											</TouchableOpacity>
-
-											{/* Option 4 */}
-											<TouchableOpacity
-												style={styles.radioButtonView}
-												onPress={() => {
-													this.setState({
-														value: this.state.value == this.state.check[3] ? '' : this.state.check[3]
-													});
-												 }}
-											>
-												<Text>{this.state.check[3]}</Text>
-												<RadioButton
-													value={this.state.check[3]}
-													status={value === this.state.check[3] ? 'checked' : 'unchecked'}
-													/>
-											</TouchableOpacity>
-
-											{/* Option 5 */}
-											<TouchableOpacity
-												style={styles.radioButtonView}
-												onPress={() => {
-													this.setState({
-														value: this.state.value == this.state.check[4] ? '' : this.state.check[4]
-													}, ()=> {
-
-														if(this.state.value === this.state.check[4]){
-														console.log('yes')
-														this.setState({
-															value:'',
-															checked_2:'',
-															checked_3:'',
-															checked_4:''
-														})
-													}
-													})
-												}}
-											>
-												<Text>{this.state.check[4]}</Text>
-												<RadioButton
-													value={this.state.check[4]}
-													status={value === this.state.check[4] ? 'checked' : 'unchecked'}
-													/>
-											</TouchableOpacity>
                                         </RadioButton.Group>
+
 								</View>
 							</Dialog.Content>
 							<Dialog.Actions>
@@ -174,10 +130,10 @@ class QuestionCM extends Component {
 									<Button
 										onPress={() => {
 											// 
-											if(this.state.value == ''){
+											if(this.state.value === '' && this.state.text === ''){
 												alert('you must choose an option')
 											} else {
-											console.log('result-----',this.state.value)
+											console.log('result-----',this.state.value, this.state.text)
 											console.log('qNumber---', this.state.qNumber)
 											this.getNextQuestion(this.state.qNumber + 1);
 											}
