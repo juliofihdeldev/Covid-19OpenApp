@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FlatList, View, StyleSheet, Dimensions} from 'react-native';
-import QuestionCM from './QuestionCM';
+import Question from './Question';
 import axios from 'axios';
 import { urlFunction } from '../utils/url';
 
@@ -11,7 +11,6 @@ class Quiz extends Component {
 		this.state = {
 			questions: [],
 			sliceValue: 1,
-	
 		};
 	}
 
@@ -55,20 +54,38 @@ class Quiz extends Component {
 		this.getQuestion();
 	}
 
+	// renderQuestion(){
+		
+	// 	let question;
+
+	// 	<FlatList
+	// 		data={this.state.questions.slice(this.state.sliceValue - 1, this.state.sliceValue)}
+	// 		keyExtractor={(item, index) => 'key' + index}
+	// 		renderItem={({ item }) =>
+	// 			(
+	// 			<QuestionCM
+	// 			item={item}
+	// 			itemChoice={item.choice}
+	// 			callNextQuestion={this.callNextQuestion}
+	// 			lengthOItem={this.state.questions.length || 0}
+	// 			questionNumber={this.state.sliceValue }
+	// 			/>
+	// 			)}
+	// 			keyExtractor={item => parseInt(item.id)}
+	// 		/>
+	// }
 
 	render() {
 		return (
-
-
 			<FlatList
 			data={this.state.questions.slice(this.state.sliceValue - 1, this.state.sliceValue)}
 			keyExtractor={(item, index) => 'key' + index}
 			renderItem={({ item }) =>
 				(
-				<QuestionCM
+				<Question
 				item={item}
-				itemChoice={item.choice}
-				callNextQuestion={this.callNextQuestion}
+				// itemChoice={item.choice}
+				// callNextQuestion={this.callNextQuestion}
 				lengthOItem={this.state.questions.length || 0}
 				questionNumber={this.state.sliceValue }
 				/>)}
