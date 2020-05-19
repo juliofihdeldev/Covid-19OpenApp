@@ -182,10 +182,10 @@ class QuestionCM extends Component {
 									<Button
 										onPress={() => {
 											// 
-											if(this.state.value == '' && this.state.checked_2 == '' && this.state.checked_3 == '' && this.state.checked_4 == '' && this.state.checked_5 == ''){
+											if(this.state.value == ''){
 												alert('you must choose an option')
 											} else {
-											console.log('result-----',this.state.value,this.state.checked_2,this.state.checked_3,this.state.checked_4)
+											console.log('result-----',this.state.value)
 											console.log('qNumber---', this.state.qNumber)
 											this.getNextQuestion(this.state.qNumber + 1);
 											}
