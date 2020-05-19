@@ -7,7 +7,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import Loading from '../utils/Loading';
 import { urlFunction } from '../utils/url';
 import axios from 'axios';
-import News from './News'
+import News from './News';
 
 const { height, width } = Dimensions.get('window');
 
@@ -25,13 +25,14 @@ class Information extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          
+            
         };
     }
 
     render() {
+        const { searchQuery } = this.state;
         return (
-            <Container>
+            <Container style={styles.container}>
                 <LinearGradient
                     style={styles.container}
                     colors={[
@@ -80,34 +81,6 @@ const styles = StyleSheet.create({
 		justifyContent  : 'center',
 		width           : width,
 		backgroundColor : color.appDarkBlue,
-	},
-	inputStyle         : {
-		height       : 38,
-		width        : 300,
-		borderColor  : '#fff',
-		borderWidth  : 1,
-		paddingLeft  : 10,
-		marginTop    : 10,
-		marginLeft   : 4,
-		bottom       : 5,
-		borderRadius : 8,
-		fontWeight   : 'bold',
-		color        : '#fff',
-	},
-	
-	buttonRegister     : {
-		paddingVertical : 9, // Vertical padding
-		textAlign       : 'center',
-		width           : 200,
-		marginTop       : 16,
-		color           : '#fff',
-		backgroundColor : color.appRed,
-		borderRadius    : 20,
-	},
-	textRegister       : {
-		color      : '#fff',
-		fontWeight : 'bold',
-		textAlign  : 'center',
 	},
 });
 
