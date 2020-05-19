@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { View, Platform, StyleSheet, TextInput, Image, Text, Alert, AsyncStorage, Dimensions } from 'react-native';
+import { Platform, StyleSheet, TextInput, Image, Text, Alert, AsyncStorage, Dimensions } from 'react-native';
+import { Container, Header, Content, Form, View } from 'native-base';
 import { LinearGradient } from 'expo-linear-gradient';
 import { color } from '../utils/GlobalColor';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Loading from '../utils/Loading';
 import { urlFunction } from '../utils/url';
 import axios from 'axios';
-import { Container, Header, Content, Card, CardItem, Thumbnail, Button, Icon, Left, Body } from 'native-base';
+import News from './News'
 
 const { height, width } = Dimensions.get('window');
 
@@ -41,43 +42,20 @@ class Information extends Component {
                     {
                         this.state.showProgress == true ? <Loading /> :
                             null}
-                
                     <Content>
-                    <View>
+                        <View>
                             <Text style={{
-                                fontSize: 30,
-                                color: "#fff"
-                        }}>
-                            Information list
-                        </Text>
-                    </View>
-                        <Card
-                        >
-                        <CardItem>
-                        <Left>
-                            <Thumbnail source={{uri: 'https://www.communication.gouv.ht/wp-content/uploads/2020/02/A4821BBB-CB56-4EB1-B2E5-4F4A5E923E34-847x477.jpeg'}} />
-                            <Body>
-                            <Text>MSPP</Text>
-                            <Text note>March 15, 2020</Text>
-                            </Body>
-                        </Left>
-                        </CardItem>
-                        <CardItem>
-                                <Body
-                                style={{
-                                    fontSize: 30,
-                                    color: "#fff"
+                                fontSize: 20,
+                                color: "#fff",
+                                textAlign: "center"
                             }}>
-                            <Text>
-                            Coronavirus: une entreprise japonaise annonce avoir développé un vaccin
+                                Information list
                             </Text>
-                        </Body>
-                        </CardItem>
-                        <CardItem>
-                        </CardItem>
-                    </Card>
-                </Content>
-
+                        </View>
+                        <View>
+                            <News/>
+                        </View>
+                    </Content>
                 </LinearGradient>
             </Container>
         );
@@ -98,7 +76,7 @@ class Information extends Component {
 const styles = StyleSheet.create({
 	container          : {
 		flex            : 1,
-
+		alignItems      : 'center',
 		justifyContent  : 'center',
 		width           : width,
 		backgroundColor : color.appDarkBlue,
