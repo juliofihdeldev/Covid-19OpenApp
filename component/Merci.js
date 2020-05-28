@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
-import { Text, Button, Dialog, Portal, RadioButton } from 'react-native-paper';
+import { Text, Button, Dialog, Portal, RadioButton,Headline } from 'react-native-paper';
 import { Provider as PaperProvider, Paragraph } from 'react-native-paper';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-navigation';
@@ -33,7 +33,7 @@ class QuestionCM extends Component {
                                     alignContent: 'center'
 								}}
 							>
-								Merci
+								
 							</Dialog.Title>
 							<Dialog.Content>
 								<View>
@@ -43,7 +43,11 @@ class QuestionCM extends Component {
 										}}
 									>
 									</Paragraph>
-                                    
+									<View style={{
+										alignItems: 'center'
+									}}>
+                                    <Headline>Merci</Headline>
+									</View>
 								</View>
 							</Dialog.Content>
 							<Dialog.Actions>

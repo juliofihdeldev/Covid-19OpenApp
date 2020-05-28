@@ -19,17 +19,30 @@ const News = ({ navigation }) => {
 	// 	console.log(response.data);
 	// };
 
-	_onChangeSearch = query => this.setState({ searchQuery: query });
+
+const contains = ({searchText}, query)=>{
+	const {title} = searchText
+	if(title.includes(query)){
+		return true
+	}
+	return false
+}
+
+	_onChangeSearch = text => {
+		console.log('Text---->> ', query)
+		const formatQuery = text.toLowerCase()
+		const filteredNews =_.filter(this.state.news, news_ => {
+			return contains(user, formatQuery)
+		})
+		setQuery(text)
+		// this.setState({ searchQuery: query });
+	}
 
 	function getNewsFromAPI() {
 		NewsAPI.get('top-headlines?country=us&apiKey=650562ae616b4291a7ed6325d4cf0898')
 			.then(function(response) {
 				setLoading(true)
-				if(query == ''){
 				setNews(response.data);
-				}else{
-					// manage query
-				}
 				setLoading(false)
 			})
 			.catch(function(error) {
@@ -49,7 +62,7 @@ const News = ({ navigation }) => {
 		<Searchbar style={styles.searchBar}
                             theme=""
                             placeholder="Search"
-                            onChangeText={setQuery}
+                            onChangeText={_onChangeSearch}
                             value={query}
                         />
 		<ActivityIndicator animating={loading} color={Colors.black} style={{alignItems:'center'}} />

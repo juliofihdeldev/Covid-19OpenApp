@@ -8,8 +8,10 @@ import Loading from '../utils/Loading';
 import { urlFunction } from '../utils/url';
 import axios from 'axios';
 import News from './News';
+import _ from 'lodash';
 
 const { height, width } = Dimensions.get('window');
+
 
 class Information extends Component {
     static navigationOptions = {

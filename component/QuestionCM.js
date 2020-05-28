@@ -188,6 +188,9 @@ class QuestionCM extends Component {
 											console.log('result-----',this.state.checked_1,this.state.checked_2,this.state.checked_3,this.state.checked_4)
 											console.log('qNumber---', this.state.qNumber)
 											if(this.state.qNumber <= this.props.lengthOItem){
+												this.props.answer_["question_id"] = this.state.qNumber
+												this.props.answer_["ques_answer"] = this.state.checked_1+' '+this.state.checked_2+' '+this.state.checked_3+' '+this.state.checked_4
+												console.log('Answers------------->>> ', this.props.answer_)
 											this.getNextQuestion(this.state.qNumber + 1);
 											}
 											}

@@ -147,16 +147,6 @@ class QuestionCM extends Component {
 													this.setState({
 														value: this.state.value == this.state.check[4] ? '' : this.state.check[4]
 													}, ()=> {
-
-													// 	if(this.state.value === this.state.check[4]? 'checked' : 'unchecked'){
-													// 	console.log('yes')
-													// 	this.setState({
-													// 		value:'',
-													// 		checked_2:'',
-													// 		checked_3:'',
-													// 		checked_4:''
-													// 	})
-													// }
 													})
 												}}
 											>
@@ -180,6 +170,9 @@ class QuestionCM extends Component {
 											console.log('result-----',this.state.value)
 											console.log('qNumber---', this.state.qNumber)
 											if(this.state.qNumber <= this.props.lengthOItem){
+												this.props.answer_["question_id"] = this.state.qNumber
+												this.props.answer_["ques_answer"] = this.state.value
+												console.log('Answers------------->>> ', this.props.answer_)
 											this.getNextQuestion(this.state.qNumber + 1);
 											}
 											}

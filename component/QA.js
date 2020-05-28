@@ -47,8 +47,9 @@ class QA extends Component {
 			sexe: 'M',
 			age: '',
 			telephone: '',
+			answers:{},
 			qrCode: null,
-			visible: true,
+			visible: false,
 			baseCode: 'PATCOV#',
 			loading: false
 		};
@@ -58,18 +59,18 @@ class QA extends Component {
 		this.setState({ sexe: sexe });
 	};
 
-	getQrCode = (time_) => {
-		let qrCodeValue = this.state.baseCode + time_;
+	// getQrCode = (time_) => {
+	// 	let qrCodeValue = this.state.baseCode + time_;
 
-		this.setState(
-			{
-				qrCode: qrCodeValue
-			},
-			() => {
-				console.log('qr code: ', this.state.qrCode);
-			}
-		);
-	};
+	// 	this.setState(
+	// 		{
+	// 			qrCode: qrCodeValue
+	// 		},
+	// 		() => {
+	// 			console.log('qr code: ', this.state.qrCode);
+	// 		}
+	// 	);
+	// };
 
 	createAlert = (msgTitle, msgContent) => {
 		Alert.alert(msgTitle, msgContent, [ { text: 'OK', onPress: () => this.setState({ visible: true }) } ], {
@@ -83,10 +84,10 @@ class QA extends Component {
 				full_name: this.state.nom + ' ' + this.state.prenom,
 				sex: this.state.sexe,
 				age: this.state.age,
-				phone: this.state.telephone
+				phone: this.state.telephone,
+				answer: this.state.answers
 			})
 			.then((response) => {
-				console.log('responsessss ----->>>> ', response);
 				this.setState({
 					nom: '',
 					prenom: '',
@@ -104,6 +105,7 @@ class QA extends Component {
 
 	componentDidMount() {
 		console.log(`url---> ${urlFunction()}/headers `);
+		console.log(`QA Page--------------------------------------------`)
 	}
 
 	_showDialog = () => this.setState({ visible: true });
@@ -173,7 +175,7 @@ class QA extends Component {
 
 							<TouchableOpacity onPress={this.register}>
 								<View style={styles.buttonRegister}>
-									<Text style={styles.textRegister}>Enregistrer</Text>
+									<Text style={styles.textRegister}>Terminer</Text>
 								</View>
 							</TouchableOpacity>
 
@@ -233,10 +235,10 @@ class QA extends Component {
 			this.setState({
 				loading: true
 			});
-			this.getQrCode(new Date().getTime());
+			// this.getQrCode(new Date().getTime());
 			this.createAlert('Success', 'Data registered with success');
 
-			this.handleSubmit();
+			// this.handleSubmit();
 		}
 	};
 }

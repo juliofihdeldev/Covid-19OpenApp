@@ -12,11 +12,13 @@ class Question extends Component {
         this.state={
             item:this.props.item,
             lengthOfItem: this.props.lengthOItem,
-            type: this.props.item.type
+            type: this.props.item.type,
+            answer: {}
         }
     }
 
     componentDidMount(){
+        console.log(`Question Page-----------------------`)
         console.log('length---->>> ',this.state.lengthOfItem)
         this.setState({
             item: this.props.item
@@ -34,6 +36,7 @@ class Question extends Component {
             callNextQuestion={this.props.callNextQuestion}
             lengthOItem={this.state.lengthOfItem || 0}
             questionNumber={this.props.questionNumber}
+            answer_={this.state.answer}
             />
                 break;
             case 2:
@@ -43,6 +46,7 @@ class Question extends Component {
             callNextQuestion={this.props.callNextQuestion}
             lengthOItem={this.state.lengthOfItem || 0}
             questionNumber={this.props.questionNumber}
+            answer_={this.state.answer}
             />
                 break;
             case 3:
@@ -52,6 +56,7 @@ class Question extends Component {
             callNextQuestion={this.props.callNextQuestion}
             lengthOItem={this.state.lengthOfItem || 0}
             questionNumber={this.props.questionNumber}
+            answer_={this.state.answer}
             />
                 break;
         }
