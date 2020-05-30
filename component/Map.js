@@ -109,8 +109,8 @@ const styles = StyleSheet.create({
 		justifyContent: 'center'
 	},
 	mapStyle: {
-		width: Dimensions.get('window').width,
-		height: Dimensions.get('window').height
+		width: Dimensions.get('window').width - 5,
+		height: Dimensions.get('window').height -2
 	}
 });
 

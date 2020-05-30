@@ -5,6 +5,7 @@ import { Provider as PaperProvider, Paragraph } from 'react-native-paper';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-navigation';
 import { color } from '../utils/GlobalColor';
+import {TextInput} from 'react-native-paper';
 
 const { height, width } = Dimensions.get('window');
 
@@ -13,13 +14,10 @@ class QuestionCM extends Component {
 		super(props);
 
 		this.state = {
+            text:'',
 			visible: true,
 			responseValue: [],
-			checked_1: '',
-			checked_2: '',
-			checked_3: '',
-			checked_4: '',
-			checked_5: '',
+			value: '',
 			qNumber: this.props.questionNumber,
 			check: this.props.item.options
 		};
@@ -28,11 +26,7 @@ class QuestionCM extends Component {
 	clearAll = () => {
 		this.setState({
 			responseValue: [],
-			checked_1: '',
-			checked_2: '',
-			checked_3: '',
-			checked_4: '',
-			checked_5: '',
+			value: '',
 			check: [],
 			qNumber: this.state.qNumber + 1
 		})
@@ -58,7 +52,7 @@ class QuestionCM extends Component {
 	};
 
 	render() {
-		const { checked_1, checked_2, checked_3, checked_4, checked_5 } = this.state;
+		const { value } = this.state;
 		return (
 			<SafeAreaView style={styles.container}>
 				<PaperProvider>
@@ -80,20 +74,24 @@ class QuestionCM extends Component {
 									>
 										{this.props.item.title}
 									</Paragraph>
+                                    <RadioButton.Group
+                                                    onValueChange={value => this.setState({ value })}
+                                                    value={this.state.value}
+                                                >
 										 {/* Option 1 */}
 											<TouchableOpacity
 												style={styles.radioButtonView}
 												onPress={() => {
 													this.setState({
-														checked_1: this.state.checked_1 === this.state.check[0] ? '' : this.state.check[0],
-														checked_5: ''
-													});
+														value: 'Oui' 
+													}),
+                                                    console.log('yyeeeee------->> ', this.state.value)
 												}}
 											>
-												<Text>{this.state.check[0]}</Text>
+												<Text>Oui</Text>
 												<RadioButton
-													value={this.state.check[0]}
-													status={checked_1 === this.state.check[0] ? 'checked' : 'unchecked'}
+													value='Oui'
+													status={this.state.value === 'Oui' ? 'checked' : 'unchecked'}
 													/>
 											</TouchableOpacity>
 
@@ -102,78 +100,28 @@ class QuestionCM extends Component {
 												style={styles.radioButtonView}
 												onPress={() => {
 													this.setState({
-														checked_2: this.state.checked_2 == this.state.check[1] ? '' : this.state.check[1],
-														checked_5: ''
-													});
+														value: 'Non' 
+													}),
+                                                    console.log('yyeeeee------->> ', this.state.value)
 												 }}
 											>
-												<Text>{this.state.check[1]}</Text>
+												<Text>Non</Text>
 												<RadioButton
-													value={this.state.check[1]}
-													status={checked_2 === this.state.check[1] ? 'checked' : 'unchecked'}
+													value='Non'
+													status={this.state.value === 'Non' ? 'checked' : 'unchecked'}
 													/>
 											</TouchableOpacity>
+                                            {/* Text Input */}
+                                            <TextInput
+                                                label="Veuillez precisez svp"
+                                                value={this.state.text}
+                                                mode="outlined"
+                                                onChangeText={(text) => this.setState({ text })}
+                                                style={styles.inputStyle}
+                                                disabled = {this.state.value === 'Oui' ? false : true}
+                                            />
 
-											{/* Option 3 */}
-											<TouchableOpacity
-												style={styles.radioButtonView}
-												onPress={() => {
-													this.setState({
-														checked_3: this.state.checked_3 == this.state.check[2] ? '' : this.state.check[2],
-														checked_5:''
-													});
-												 }}
-											>
-												<Text>{this.state.check[2]}</Text>
-												<RadioButton
-													value={this.state.check[2]}
-													status={checked_3 === this.state.check[2] ? 'checked' : 'unchecked'}
-													/>
-											</TouchableOpacity>
-
-											{/* Option 4 */}
-											<TouchableOpacity
-												style={styles.radioButtonView}
-												onPress={() => {
-													this.setState({
-														checked_4: this.state.checked_4 == this.state.check[3] ? '' : this.state.check[3],
-														checked_5:''
-													});
-												 }}
-											>
-												<Text>{this.state.check[3]}</Text>
-												<RadioButton
-													value={this.state.check[3]}
-													status={checked_4 === this.state.check[3] ? 'checked' : 'unchecked'}
-													/>
-											</TouchableOpacity>
-
-											{/* Option 5 */}
-											<TouchableOpacity
-												style={styles.radioButtonView}
-												onPress={() => {
-													this.setState({
-														checked_5: this.state.checked_5 == this.state.check[4] ? '' : this.state.check[4]
-													}, ()=> {
-
-														if(this.state.checked_5 === this.state.check[4]){
-														console.log('yes')
-														this.setState({
-															checked_1:'',
-															checked_2:'',
-															checked_3:'',
-															checked_4:''
-														})
-													}
-													})
-												}}
-											>
-												<Text>{this.state.check[4]}</Text>
-												<RadioButton
-													value={this.state.check[4]}
-													status={checked_5 === this.state.check[4] ? 'checked' : 'unchecked'}
-													/>
-											</TouchableOpacity>
+                                        </RadioButton.Group>
 
 								</View>
 							</Dialog.Content>
@@ -182,14 +130,14 @@ class QuestionCM extends Component {
 									<Button
 										onPress={() => {
 											// 
-											if(this.state.checked_1 == '' && this.state.checked_2 == '' && this.state.checked_3 == '' && this.state.checked_4 == '' && this.state.checked_5 == ''){
+											if(this.state.value === '' && this.state.text === ''){
 												alert('you must choose an option')
 											} else {
-											console.log('result-----',this.state.checked_1,this.state.checked_2,this.state.checked_3,this.state.checked_4)
+											console.log('result-----',this.state.value, this.state.text)
 											console.log('qNumber---', this.state.qNumber)
 											if(this.state.qNumber <= this.props.lengthOItem){
 												this.props.answer_["question_id"] = this.state.qNumber
-												this.props.answer_["ques_answer"] = this.state.checked_1+' '+this.state.checked_2+' '+this.state.checked_3+' '+this.state.checked_4
+												this.props.answer_["ques_answer"] = this.state.value
 												console.log('Answers------------->>> ', this.props.answer_)
 											this.getNextQuestion(this.state.qNumber + 1);
 											}
