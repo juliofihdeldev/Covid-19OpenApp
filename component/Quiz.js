@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { FlatList, View, StyleSheet, Dimensions} from 'react-native';
-import QuestionCM from './QuestionCM';
+import Question from './Question';
 import axios from 'axios';
 import { urlFunction } from '../utils/url';
+
 
 class Quiz extends Component {
 	constructor(props) {
@@ -11,7 +12,6 @@ class Quiz extends Component {
 		this.state = {
 			questions: [],
 			sliceValue: 1,
-	
 		};
 	}
 
@@ -40,7 +40,6 @@ class Quiz extends Component {
 	};
 
 	callNextQuestion = (value) => {
-		console.log('value----- ', value)
 		if(value <= this.state.questions.length){
 		this.setState(
 			{
@@ -51,21 +50,22 @@ class Quiz extends Component {
 	}
 	};
 
+	componentDidMount(){
+		console.log(`Quiz Page---------------------------`)
+	}
+
 	componentWillMount() {
 		this.getQuestion();
 	}
 
-
 	render() {
 		return (
-
-
 			<FlatList
 			data={this.state.questions.slice(this.state.sliceValue - 1, this.state.sliceValue)}
 			keyExtractor={(item, index) => 'key' + index}
 			renderItem={({ item }) =>
 				(
-				<QuestionCM
+				<Question
 				item={item}
 				itemChoice={item.choice}
 				callNextQuestion={this.callNextQuestion}
@@ -78,7 +78,6 @@ class Quiz extends Component {
 		)
 	}
 }
-
 
 export default Quiz;
 

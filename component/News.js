@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { View, Stylesheet, Text, Button, FlatList } from 'react-native';
+import { View, StyleSheet, Text, Button, FlatList } from 'react-native';
 import NewsCard from './NewsCard';
 import NewsAPI from '../utils/News';
-import {ActivityIndicator, Colors} from 'react-native-paper'
+import {ActivityIndicator, Colors} from 'react-native-paper';
+import { Searchbar } from 'react-native-paper';
 
 const News = ({ navigation }) => {
+	// searchQuery: ''
 	const [loading, setLoading] = useState(false)
 	const [ news, setNews ] = useState([]);
+	const [query, setQuery] = useState('');
 	useEffect(() => {
 		getNewsFromAPI();
 	}, []);
@@ -15,6 +18,25 @@ const News = ({ navigation }) => {
 	// 	const response = await NewsAPI.get('top-headlines?country=us&apiKey=650562ae616b4291a7ed6325d4cf0898');
 	// 	console.log(response.data);
 	// };
+
+
+const contains = ({searchText}, query)=>{
+	const {title} = searchText
+	if(title.includes(query)){
+		return true
+	}
+	return false
+}
+
+	_onChangeSearch = text => {
+		console.log('Text---->> ', query)
+		const formatQuery = text.toLowerCase()
+		const filteredNews =_.filter(this.state.news, news_ => {
+			return contains(user, formatQuery)
+		})
+		setQuery(text)
+		// this.setState({ searchQuery: query });
+	}
 
 	function getNewsFromAPI() {
 		NewsAPI.get('top-headlines?country=us&apiKey=650562ae616b4291a7ed6325d4cf0898')
@@ -37,6 +59,12 @@ const News = ({ navigation }) => {
 
 	return (
 		<View>
+		<Searchbar style={styles.searchBar}
+                            theme=""
+                            placeholder="Search"
+                            onChangeText={_onChangeSearch}
+                            value={query}
+                        />
 		<ActivityIndicator animating={loading} color={Colors.black} style={{alignItems:'center'}} />
 			<FlatList
 				data={news.articles}
@@ -48,5 +76,14 @@ const News = ({ navigation }) => {
 		</View>
 	);
 };
+
+const styles = StyleSheet.create({
+	
+    searchBar: {
+        marginLeft: 10,
+        marginRight: 10,
+    }
+});
+
 
 export default News;
