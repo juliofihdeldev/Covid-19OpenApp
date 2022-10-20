@@ -30,7 +30,7 @@
 		"react-native-qr-barcode": "^0.6.4",
 		"react-native-qrcode": "github:wanxsb/react-native-qrcode#1a08f9cedcb747fd230be717fe815c686e4427cb",
 		"react-native-qrcode-svg": "^6.0.3",
-		"react-native-reanimated": "~1.4.0",
+		"react-native-reanimated": "~2.10.0",
 		"react-native-render-html": "^4.1.2",
 		"react-native-screens": "2.0.0-alpha.12",
 		"react-native-search-box": "^0.0.19",
